@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- css animation link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <title>Assignment-5</title>
+</head>
+
+<body class="container bg-dark text-white">
+    <header>
+        <h2 class="text-center fw-bolder mt-2 animate__animated animate__bounce">Monthly Expa<span
+                class="text-danger">nces In Hostel</span></h2>
+
+        <hr class="w-50 mx-auto " width="2px">
+
+    </header>
+    <main>
+        <div class="row align-items-center p-5 justify-content-around">
+            <div class="col-lg-5 col-sm-12 shadow bg-gradient p-3 rounded">
+                <img src="michelle-spollen-P22AFmgMuUc-unsplash.jpg" class="w-100 img-fluid" alt="">
+            </div>
+            <div class="col-lg-5 col-sm-12 shadow bg-gradient rounded p-1">
+                <h3 class="text-center mb-3">Income</h3>
+                <div class="d-flex justify-content-around">
+                    <p class="fw-bold">Income:</p>
+                    <input type="text" id="monthly-income">
+                </div>
+                <h3 class="text-center mb-3">Expences</h3>
+                <div class="d-flex justify-content-around mb-2">
+                    <p class="fw-bold">Food:</p>
+                    <input type="text" id="expance-food">
+                </div>
+                <div class="d-flex justify-content-around mb-2">
+                    <p class="fw-bold">Rent:</p>
+                    <input type="text" id="expance-rent">
+                </div>
+                <div class="d-flex justify-content-around mb-2">
+                    <p class="fw-bold">Clths:</p>
+                    <input type="text" id="expance-cloths">
+                </div>
+                <div class="text-center"> <button class="btn btn-danger mb-2" id="calculate-btn">Calculate</button>
+                </div>
+                <h3 class="text-center mb-2">Total Expences: <span id="total-expances">0</span></h3>
+                <h3 class="text-center mb-2">Balance:<span id="total-balance">0</span></h3>
+                <div class="d-flex mb-2 justify-content-around">
+                    <p class="fw-bold">save:</p>
+                    <input type="text" id="save-input">%
+                    <button class="btn btn-danger fw-bold" id="save-btn">Save</button>
+                </div>
+                <h3 class="text-center mb-2">Saving Amount:<span id="save-amount">0</span> </h3>
+                <h3 class="text-center mb-2">Remaining Amount:<span id="remaining-amount">0</span></h3>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script>
+
+        function evaluateInputField(event) {
+            const monthlyInputField = document.getElementById(event);
+            const monthlyInputFieldText = monthlyInputField.value;
+            const monthlyInputAmount = parseFloat(monthlyInputFieldText);
+            // clear the inputfield 
+
+            return monthlyInputAmount;
+        }
+
+        function evaluateBalance(inputTwo) {
+
+            const balanceAmountText = document.getElementById(inputTwo).innerText;
+            const balanceInAmount = parseFloat(balanceAmountText);
+            return balanceInAmount;
+
+
+        }
+        // calculate btn 
+        document.getElementById('calculate-btn').addEventListener('click', function () {
+            // income-input
+            const monthlyIncomeAmount = evaluateInputField('monthly-income');
+
+            // expances input 
+            // food 
+            const foodExpansesAmount = evaluateInputField('expance-food');
+            // rent 
+            const rentExpansesAmount = evaluateInputField('expance-rent');
+            // clothes 
+            const clothesExpansesAmount = evaluateInputField('expance-cloths');
+
+            // calculate btn evaluate
+            if (monthlyIncomeAmount > 0 && foodExpansesAmount > 0 && rentExpansesAmount > 0 && clothesExpansesAmount > 0) {
+                const totalExpances = document.getElementById('total-expances');
+                totalExpances.innerText = foodExpansesAmount + rentExpansesAmount + clothesExpansesAmount;
+
+                const totalBalance = document.getElementById('total-balance');
+                totalBalance.innerText = monthlyIncomeAmount - parseFloat(totalExpances.innerText);
+            }
+
+            else if (monthlyIncomeAmount !== "number" && foodExpansesAmount !== "number" && rentExpansesAmount !== "number" && clothesExpansesAmount !== "number") {
+                alert('pls pass a number')
+            }
+            else {
+                alert('pls pass a positve number')
+            }
+
+        })
+
+        document.getElementById('save-btn').addEventListener('click', function () {
+            // saving amount 
+            const savePercentageAmount = evaluateInputField('save-input');
+
+            const monthlyIncomeAmount = evaluateInputField('monthly-income');
+
+            const savingAmount = document.getElementById('save-amount');
+            savingAmount.innerText = monthlyIncomeAmount * (savePercentageAmount / 100);
+
+            // remaining balance 
+
+            const totalBlanceAmont = evaluateBalance('total-balance');
+
+            const savingInAmount = evaluateBalance('save-amount');
+
+            const remainingBalance = document.getElementById('remaining-amount');
+            remainingBalance.innerText = totalBlanceAmont - savingInAmount;
+        })
+
+
+    </script>
+
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
